@@ -3,6 +3,7 @@ import { useState } from "react";
 /*
   Components
 */
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import Nav from "./components/common/Nav";
 import Footer from "./components/common/Footer";
 import Home from "./components/home/Home";
@@ -25,11 +26,16 @@ function App() {
 
   return (
     <div className="wrapper">
-      <Nav />
-      <Home employees={employees} owners={owners} pets={pets} />
-      <StaffList employees={employees} />
-      <PetsList pets={pets} />
-      <Footer />
+      <Router>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home employees={employees} owners={owners} pets={pets} />} />
+          <Route path="/staff/*" element={<StaffList employees={employees} />} />
+          <Route path="/pets/*" element={<PetsList pets={pets} />} />
+        </Routes>
+        <Footer />
+      </Router>
+
     </div>
   );
 }
